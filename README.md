@@ -14,7 +14,7 @@
 
 
 ### Setup and Configuration:
-1- Android: The app handles URLs via intent filters defined in **AndroidManifest.xml.** Here’s a snippet of the configuration:
+1- Android: The app handles URLs via intent filters defined in **main/AndroidManifest.xml.** Here’s a snippet of the configuration:
 ```xml
  <!-- Corrected the intent-filter tag here -->
             <intent-filter android:autoVerify="true">
