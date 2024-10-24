@@ -1,12 +1,15 @@
-# blue_book
+# Blue Book
 
 ## 🌟 Features
 - **🛍️ Login with Username and Password**:
-
+ <img src="https://github.com/user-attachments/assets/4980b02d-4110-48e5-b672-69bbfa357f53" width="200" alt="auth">
   
-- **🛍️ Deep Linking Feature**:We have added Deep Linking support to our app! With this feature, you can now open the app from a URL, either from a website or another app. This allows users to launch the app directly and navigate to specific content or screens.
+- **🛍️ Deep Linking Feature**:
+  - We have added Deep Linking support to our app! With this feature, you can now open the app from a URL, either from a website or another app. This allows users to launch the app directly 
+   and 
+  navigate to specific content or screens.
  - Supported Platforms:
-   Android: Supports deep links via intent filters.
+    - Android: Supports deep links via intent filters.
    
  - URLs
    https://blue.book.app.com
@@ -28,3 +31,4 @@
             <meta-data android:name="flutter-deeplink" android:value="true" />
 
 ```
+ - The app listens for deep links
