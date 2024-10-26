@@ -1,16 +1,34 @@
-# blue_book
+# Blue Book
 
-A new Flutter project.
+## 🌟 Features
+- **🛍️ Login with Username and Password**:
+ <img src="https://github.com/user-attachments/assets/4980b02d-4110-48e5-b672-69bbfa357f53" width="200" alt="auth">
+  
+- **🛍️ Deep Linking Feature**:
+  - We have added Deep Linking support to our app! With this feature, you can now open the app from a URL, either from a website or another app. This allows users to launch the app directly 
+   and 
+  navigate to specific content or screens.
+ - Supported Platforms:
+    - Android: Supports deep links via intent filters.
+   
+ - URLs
+   https://blue.book.app.com
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Setup and Configuration:
+1- Android: The app handles URLs via intent filters defined in **main/AndroidManifest.xml.** Here’s a snippet of the configuration:
+```xml
+ <!-- Corrected the intent-filter tag here -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="blue.book.app.com"/>
+                <data android:scheme="https" android:host="blue.book.app.com"/>
+            </intent-filter>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+            <meta-data android:name="flutter-deeplink" android:value="true" />
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+ - The app listens for deep links

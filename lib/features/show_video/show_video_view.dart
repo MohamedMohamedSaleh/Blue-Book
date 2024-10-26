@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+// ignore: library_prefixes
+import 'package:http/http.dart' as httpServer;
 
 class ShowVideoView extends StatefulWidget {
   const ShowVideoView({super.key});
@@ -9,32 +13,77 @@ class ShowVideoView extends StatefulWidget {
 }
 
 class _ShowVideoViewState extends State<ShowVideoView> {
-  static String htmlBunny =
-      '<div style="position:relative;padding-top:56.25%;"><iframe src="https://iframe.mediadelivery.net/embed/328363/dd0020d1-53af-4820-be5a-78a9b7f98fdc?autoplay=false&loop=false&muted=false&preload=false&responsive=true" loading="lazy" style="border:0;position:absolute;top:100%;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>';
+  // data from server
 
-  late WebViewController _controller;
+  Future<String> loadHtmlFromWeb({required String username , required String password}) async {
+
+  //const url = 'http://192.168.1.4:8000/settings/get_student_video/'; // localhost
+  const url = 'https://staging.iceage.me.uk/settings/get_student_video/'; // staging server test
+  final response = await httpServer.post(
+  Uri.parse(url) , 
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+
+    body: jsonEncode(<String, String>{
+      'username': username,
+      'password': password,
+    }),
+  );
+
+    final responseData = json.decode(response.body);
+    print(responseData['video']['video_html'].toString());
+    return responseData['video']['video_html'].toString();
+
+  }
+
+  // end data from server
+
+    String ? htmlBunny; 
+
+   WebViewController ? _controller;
+
+
+/////////-------------///
+Future<void> _initializeWebView() async {
+  String htmlBunny = await loadHtmlFromWeb(username: 'ahmedissa' , password:'withALLAH' );
+  print("ssssssssssssssssssssssssssssss");
+  print(htmlBunny);
+  print("ssssssssssssssssssssssssssssss");
+  setState(() {
+     _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(Colors.white)
+      ..loadHtmlString(htmlBunny);
+  });
+   
+}
+/////////
+
+
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-  
-    _controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.unrestricted)..setBackgroundColor(Colors.white)
-    ..loadHtmlString(htmlBunny);
+     //_controller = WebViewController();
+
+     setState(() {
+       _initializeWebView();
+     });
     
   }
 
 
-
-  // controller to run  view
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // webview_flutter
-      body: WebViewWidget(
-
-        controller: _controller,
+      appBar: AppBar(
+        title: const Text("hello"),
+      ),
+    //  webview_flutter
+      body: Center(
+        child: _controller == null ? const CircularProgressIndicator() : WebViewWidget(
+          controller: _controller!,
+        ),
       ),
     );
   }

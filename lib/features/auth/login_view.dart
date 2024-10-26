@@ -5,9 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../core/widgets/custom_filled_button.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
