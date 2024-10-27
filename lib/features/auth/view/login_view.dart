@@ -1,9 +1,9 @@
 import 'package:blue_book/core/constants/colors.dart';
 import 'package:blue_book/core/widgets/custom_app_input.dart';
-import 'package:blue_book/features/show_video/show_video_view.dart';
+import 'package:blue_book/features/show_video/view/show_video_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import '../../core/widgets/custom_filled_button.dart';
+import '../../../core/widgets/custom_filled_button.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
