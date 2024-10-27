@@ -5,8 +5,11 @@ import 'package:flutter/services.dart';
 
 import 'core/constants/colors.dart';
 import 'core/helpers/helper_methods.dart';
+import 'core/services/kiwi.dart';
 
 void main() { 
+  WidgetsFlutterBinding.ensureInitialized();
+  initKiwi();
     SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: getMaterialColor(

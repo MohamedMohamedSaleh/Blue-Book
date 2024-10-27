@@ -27,7 +27,7 @@ class _CustomAppInputState extends State<CustomAppInput> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 52,
+      // height: 52,
       child: TextFormField(
         validator: widget.validator,
         controller: widget.controller,
@@ -38,6 +38,8 @@ class _CustomAppInputState extends State<CustomAppInput> {
         ),
         autofocus: widget.isFocus,
         decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           suffixIcon: widget.isPassword
               ? IconButton(
                   icon: Icon(

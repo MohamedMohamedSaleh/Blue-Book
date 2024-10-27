@@ -1,3 +1,4 @@
+import 'package:blue_book/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomFilledButton extends StatelessWidget {
@@ -5,9 +6,11 @@ class CustomFilledButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.title,
+    this.isLoading = false,
   });
   final void Function()? onPressed;
   final String title;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,6 +20,7 @@ class CustomFilledButton extends StatelessWidget {
         width: double.infinity,
         child: FilledButton(
           style: FilledButton.styleFrom(
+            backgroundColor: isLoading ? Colors.blue[800] : myPrimaryColor,
             splashFactory: InkRipple.splashFactory,
             fixedSize: const Size(double.infinity, 52),
             elevation: 6,
@@ -25,11 +29,24 @@ class CustomFilledButton extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-          child: Text(
-            title,
-            style: const TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w500),
-          ),
+          child: isLoading
+              ? const SizedBox(
+                  width: 90,
+                  height: 5,
+                  child: LinearProgressIndicator(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    // color: Colors.blue[800],
+                  ),
+                )
+              : Text(
+                  title,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500),
+                ),
         ),
       ),
     );
