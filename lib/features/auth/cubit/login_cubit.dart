@@ -1,4 +1,5 @@
 import 'package:blue_book/core/constants/constants.dart';
+import 'package:blue_book/core/helpers/cache_helper.dart';
 import 'package:blue_book/core/helpers/dio_helper.dart';
 import 'package:blue_book/core/helpers/extentions.dart';
 import 'package:blue_book/core/helpers/helper_methods.dart';
@@ -22,12 +23,13 @@ class LoginCubit extends Cubit<LoginCubitStates> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> login() async {
+  Future<void> login({bool isAuth = false}) async {
     emit(LoginLoadingState());
     final modelToJson = LoginModel(
-            userName: userNameController.text,
-            password: passwordController.text)
-        .toJson();
+      userName: isAuth ? CacheHelper.getUserName()! : userNameController.text,
+      password:
+          isAuth ? CacheHelper.getUserPassword()! : passwordController.text,
+    ).toJson();
 
     final response = await dioHelper.post(
       endPoint: EndPoints.getStudentVideo,
@@ -42,11 +44,19 @@ class LoginCubit extends Cubit<LoginCubitStates> {
     final model = ShowVideoModel.fromJson(response.response!.data);
 
     if (model.success) {
-      navigatorKey.currentContext!.push(ShowVideoView(
+      navigatorKey.currentContext!.pushReplacement(ShowVideoView(
         urlVideo: model.video.videoHtml,
       ));
+      if (!isAuth) {
+        CacheHelper.saveUserData(
+          model: LoginModel(
+            userName: userNameController.text,
+            password: passwordController.text,
+          ),
+        );
       showMessage(message: "Login Successfull", isSuccess: true);
-      // emit(LoginSuccessState());
+      }
+      emit(LoginSuccessState());
     } else {
       showMessage(message: "Invalid Username or Password", isSuccess: false);
       emit(LoginFailureState());

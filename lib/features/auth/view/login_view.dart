@@ -1,4 +1,5 @@
 import 'package:blue_book/core/constants/colors.dart';
+import 'package:blue_book/core/helpers/cache_helper.dart';
 import 'package:blue_book/core/widgets/custom_app_input.dart';
 import 'package:blue_book/features/auth/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,21 @@ class _LoginViewState extends State<LoginView> {
   final cubit = KiwiContainer().resolve<LoginCubit>();
   @override
   Widget build(BuildContext context) {
+    if (CacheHelper.isAuth()) {
+      cubit.login(isAuth: true);
+      return const Scaffold(
+        body: Center(
+          child: Text(
+            "Verifying your account...",
+            style: TextStyle(
+              color: myPrimaryColor,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
     return SafeArea(
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

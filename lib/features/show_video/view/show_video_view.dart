@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -14,7 +14,6 @@ class ShowVideoView extends StatefulWidget {
 }
 
 class _ShowVideoViewState extends State<ShowVideoView> {
- 
   final cubit = KiwiContainer().resolve<ShowVideoCubit>();
   @override
   void initState() {
@@ -32,7 +31,13 @@ class _ShowVideoViewState extends State<ShowVideoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("hello"),
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
+          statusBarColor: Colors.transparent,
+          
+        ),
+
+        title: const Text("Your Video"),
       ),
       //  webview_flutter
       body: BlocBuilder(
@@ -44,9 +49,9 @@ class _ShowVideoViewState extends State<ShowVideoView> {
             );
           }
           return Center(
-            child : WebViewWidget(
-                    controller: cubit.controller,
-                  ),
+            child: WebViewWidget(
+              controller: cubit.controller,
+            ),
           );
         },
       ),

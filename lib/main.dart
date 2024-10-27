@@ -1,3 +1,4 @@
+import 'package:blue_book/core/helpers/cache_helper.dart';
 import 'package:blue_book/core/themes/theming.dart';
 import 'package:blue_book/features/auth/view/login_view.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,10 @@ import 'core/constants/colors.dart';
 import 'core/helpers/helper_methods.dart';
 import 'core/services/kiwi.dart';
 
-void main() { 
+void main()async { 
   WidgetsFlutterBinding.ensureInitialized();
   initKiwi();
+  await CacheHelper.init();
     SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: getMaterialColor(
